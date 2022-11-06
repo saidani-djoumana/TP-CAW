@@ -1,16 +1,19 @@
-var boundaries = document.querySelectorAll(".boundary");
-var theendwin = document.querySelector("#end");
-var success = true;
+const fs =require("fs");
+const path = require('path')
+const fileChecker = async (text,c,h,m) => {
 
-for(var n = 0; n < boundaries.length; n++){
-    boundaries[n].addEventListener("mouseover",function() { 
-        success = false;
-     this.style.background = "red" ;
+const grp = [c,h,m];
+ for(let i=0;i<grp.length;i++){
+    const name =path.basename(grp[i]);
+    fs.readFile(grp[i], function(err,data){
+        if(err) throw err;
+        if(data.includes(text)){
+            return console.log(name);
+        }else{
+            return console.log('none')
+        }
     });
 }
+}
+    fileChecker('saidani','text1.txt','text2.txt')
 
-theendwin.addEventListener("mouseover" , function(){
- if(success == true) {
-    alert("You Win !");
- }
-})
